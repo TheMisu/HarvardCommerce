@@ -17,7 +17,7 @@ class Listing(models.Model):
     category = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.title
     
 # Bid model
 class Bid(models.Model):
