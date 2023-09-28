@@ -7,6 +7,7 @@ class User(AbstractUser):
 
 # Auction Listing model
 class Listing(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     description = models.TextField
     starting_price = models.DecimalField(max_digits=9, decimal_places=2)
