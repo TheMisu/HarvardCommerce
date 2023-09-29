@@ -3,5 +3,13 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% if listings %}
+        <ol>
+            {% for listing in listings %}
+                <li>{{ listing.title }}, €{{ listing.curr_price }}</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        There are no listings yet.
+    {% endif %}
 {% endblock %}
