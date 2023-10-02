@@ -69,7 +69,14 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def create(request):
-    form = ListingForm()
-    return render(request, "auctions/create.html", {
+    if request.method == 'POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            form.save() # saves the data to the database
+            return HttpResponseRedirect(reverse("index"))
+
+    else:
+        form = ListingForm()
+        return render(request, "auctions/create.html", {
         "form": form
-    })
+        })
