@@ -84,4 +84,10 @@ def create(request):
         return render(request, "auctions/create.html", {
         "form": form
         })
-    
+
+def listing(request, title):
+      listing = Listing.objects.get(title=title)
+      return render(request, "auctions/listing.html", {
+          "title": title,
+          "listing": listing
+      })
