@@ -6,7 +6,7 @@
     {% if listings %}
         <ol>
             {% for listing in listings %}
-                <li><img src="{{ listing.picture }}"> {{ listing.title }}, {{listing.description}}, €{{ listing.curr_price }}</li>
+                <li><a href="{% url 'listing' title=listing.title %}"><img src="{{ listing.picture }}"> {{ listing.title }}, {{listing.description}}, €{{ listing.curr_price }}</a></li>
             {% endfor %}
         </ol>
     {% else %}
