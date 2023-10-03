@@ -69,6 +69,10 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def create(request):
+    """
+    This view is used to either diplay a page on which the user can fill in a form to
+    create a listing or to submit the data in the form and save it in the DB.
+    """
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
@@ -80,3 +84,4 @@ def create(request):
         return render(request, "auctions/create.html", {
         "form": form
         })
+    
