@@ -8,7 +8,7 @@ class User(AbstractUser):
 # Auction Listing model
 class Listing(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField(null=True)
+    description = models.TextField(blank=True)
     starting_price = models.DecimalField(max_digits=9, decimal_places=2)
     curr_price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     date_time_creation = models.DateTimeField(auto_now_add=True)
