@@ -2,15 +2,17 @@
 
 {% block body %}
 
-<h1>Test</h1>
+<h1>Watchlist</h1>
 
 {% if watchlist %}
-
     <ul>
         {% for item in watchlist %}
             <li>{{item.title}}, {{item.description}}, {{item.curr_price}} <img src="{{item.picture}}"></li>
         {% endfor %}
     </ul>
+
+{% else %}
+    <p>There are no listings in your watchlist. </p>
 
 {% endif %}
 
