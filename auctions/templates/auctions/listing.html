@@ -9,5 +9,11 @@
     <br>
     {{ listing.description }}
 
+    {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'listing' listing.title %}">
+            {% csrf_token %}
+            <button type="submit">{{ msg }}</button>
+        </form>
+    {% endif %}
 
 {% endblock %}
