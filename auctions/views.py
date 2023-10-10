@@ -95,3 +95,11 @@ def listing(request, title):
           "listing": listing
       })
 
+def watchlist(request):
+    """
+    This view is used to load and display the user's watchlist.
+    """
+    user = request.user
+    return render(request, "auctions/watchlist.html", {
+        "watchlist": user.watchlist.all()
+    })
