@@ -7,7 +7,7 @@
 {% if watchlist %}
     <ul>
         {% for item in watchlist %}
-            <li>{{item.title}}, {{item.description}}, {{item.curr_price}} <img src="{{item.picture}}"></li>
+            <li><a href="{% url 'listing' title=item.title %}">{{item.title}}, {{item.description}}, {{item.curr_price}} <img src="{{item.picture}}"></a></li>
         {% endfor %}
     </ul>
 
