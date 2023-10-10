@@ -86,8 +86,12 @@ def create(request):
         })
 
 def listing(request, title):
+      """
+      This view is used to display the page of any individual listing.
+      """
       listing = Listing.objects.get(title=title)
       return render(request, "auctions/listing.html", {
           "title": title,
           "listing": listing
       })
+
