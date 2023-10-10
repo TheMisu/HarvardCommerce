@@ -86,15 +86,46 @@ def create(request):
         })
 
 def listing(request, title):
-      """
-      This view is used to display the page of any individual listing.
-      """
-      listing = Listing.objects.get(title=title)
-      return render(request, "auctions/listing.html", {
-          "title": title,
-          "listing": listing
-      })
+    """
+    This view is used to display the page of any individual listing.
+    """
+    listing = Listing.objects.get(title=title)
+    user = request.user
 
+    # used when the user clicks the submit button in order to add/remove
+    # the listing from their watchlist
+    if request.method == "POST":
+        if listing in user.watchlist.all():
+            # remove the listing if it was already in the users watchlist
+            user.watchlist.remove(listing)
+            return render(request, "auctions/listing.html", {
+                "title": title,
+                "listing": listing,
+                "msg": "Add to Watchlist"
+            }) 
+        else:           
+            # add the listing to the user's watchlist
+            user.watchlist.add(listing)
+            return render(request, "auctions/listing.html", {
+                "title": title,
+                "listing": listing,
+                "msg": "Remove from Watchlist"
+            })
+
+    else:
+        if listing in user.watchlist.all():
+            return render(request, "auctions/listing.html", {
+                "title": title,
+                "listing": listing,
+                "msg": "Remove from Watchlist"
+            }) 
+        else:           
+            return render(request, "auctions/listing.html", {
+                "title": title,
+                "listing": listing,
+                "msg": "Add to Watchlist"
+            })
+    
 def watchlist(request):
     """
     This view is used to load and display the user's watchlist.
