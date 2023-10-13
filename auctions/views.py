@@ -130,11 +130,12 @@ def listing(request, title):
                 "msg": "Add to Watchlist"
             })
     
+@login_required    
 def watchlist(request):
     """
     This view is used to load and display the user's watchlist.
     """
     user = request.user
     return render(request, "auctions/watchlist.html", {
-        "watchlist": user.watchlist.all()
+        "watchlist": user.created.all()
     })
