@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from auctions.forms import ListingForm
+from django.contrib.auth.decorators import login_required
 
 
 from .models import User, Listing
@@ -68,6 +69,7 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+@login_required
 def create(request):
     """
     This view is used to either diplay a page on which the user can fill in a form to
@@ -76,7 +78,9 @@ def create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
-            form.save() # saves the data to the database
+            new_listing = form.save(commit=False) # saves the data but doesn't update the db
+            new_listing.save() # updates the db
+            request.user.created.add(new_listing)   # relates the newly created listing to the user
             return HttpResponseRedirect(reverse("index"))
 
     else:
@@ -132,5 +136,5 @@ def watchlist(request):
     """
     user = request.user
     return render(request, "auctions/watchlist.html", {
-        "watchlist": user.watchlist.all()
+        "watchlist": user.created.all()
     })

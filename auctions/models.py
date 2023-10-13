@@ -3,7 +3,8 @@ from django.db import models
 
 # User model
 class User(AbstractUser):
-    watchlist = models.ManyToManyField("Listing", blank=True)
+    watchlist = models.ManyToManyField("Listing", blank=True, related_name="watchlist")
+    created = models.ManyToManyField("Listing", blank=True, related_name="created_by")
 
 # Auction Listing model
 class Listing(models.Model):
