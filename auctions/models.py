@@ -40,8 +40,9 @@ class Bid(models.Model):
         # find the highest bid on that particular listing
         highest_bid = Bid.objects.filter(listing=self.listing).order_by('-amount').first()
         if highest_bid:
-            self.listing.curr_price = highest_bid.amount
-            self.listing.save()
+            if highest_bid.amount >= self.listing.curr_price:
+                self.listing.curr_price = highest_bid.amount
+                self.listing.save()
 
     def __str__(self):
         return str(self.amount)
