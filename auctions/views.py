@@ -136,5 +136,5 @@ def watchlist(request):
     """
     user = request.user
     return render(request, "auctions/watchlist.html", {
-        "watchlist": user.created.all()
+        "watchlist": user.watchlist.all()
     })
