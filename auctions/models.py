@@ -28,8 +28,8 @@ class Listing(models.Model):
 # Bid model
 class Bid(models.Model):
     amount = models.DecimalField(max_digits=9, decimal_places=2)
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='bids')
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_bids')
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='listing_bids')
     date_time_creation = models.DateTimeField(auto_now_add=True)
 
     # change the save method so that we can update the curr price
@@ -49,6 +49,6 @@ class Bid(models.Model):
 # Comment model
 class Comment(models.Model):
     comm = models.TextField
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_comments')
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='listing_comments')
     date_time_creation = models.DateTimeField(auto_now_add=True)   
